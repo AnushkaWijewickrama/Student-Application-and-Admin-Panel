@@ -1,0 +1,118 @@
+<form class="m-4" [formGroup]="studentLicenseForm">
+    <div class="container">
+        <h1 class="mt-4 mb-4 text-center text-primary">Apply For a Student License</h1>
+        <div class="row">
+            <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>FirstName</mat-label>
+                    <input matInput placeholder="Enter FirstName" formControlName="firstName" required>
+                    <mat-error>
+                        FirstName is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>LastName</mat-label>
+                    <input matInput placeholder="Enter LastName" formControlName="lastName" required>
+                    <mat-error>
+                        LastName is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput placeholder="Ex. kasun@gmail.com" formControlName="email" required>
+                    @if (studentLicenseForm.get('email')?.hasError('email') &&
+                    !studentLicenseForm.get('email')?.hasError('required')) {
+                    <mat-error>Please enter a valid email address</mat-error>
+                    }
+                    @if (studentLicenseForm.get('email')?.hasError('required')) {
+                    <mat-error>Email is required</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Phone</mat-label>
+                    <input type="number" matInput placeholder="Enter Phone Number" required formControlName="phone">
+                    <mat-error *ngIf="studentLicenseForm?.get('phone')?.hasError('required')">Mobile Number is
+                        required.</mat-error>
+                    <mat-error *ngIf="studentLicenseForm.get('phone')?.hasError('pattern')">Please, Enter 10 digit
+                        Mobile
+                        Number</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input matInput placeholder="Enter Address">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
+                <mat-form-field>
+                    <mat-label>Country</mat-label>
+                    <mat-select formControlName="country" required>
+                        @for (country of countries; track country.code) {
+                        <mat-option [value]="country">{{country.name}}</mat-option>
+                        } @empty {
+                        <li>There are no items.</li>
+                        }
+                    </mat-select>
+                    <mat-error>
+                        Country is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
+                <mat-form-field>
+                    <mat-label>Institude</mat-label>
+                    <mat-select formControlName="institude" required>
+                        @for (institude of institutes; track institude.code) {
+                        <mat-option [value]="institude">{{institude.name}}</mat-option>
+                        } @empty {
+                        <li>There are no items.</li>
+                        }
+                    </mat-select>
+                    <mat-error>
+                        Institude is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Intake</mat-label>
+                    <input matInput placeholder="Enter Intake" formControlName="intake" required>
+                    <mat-error>
+                        Intake is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Course Title</mat-label>
+                    <input matInput placeholder="Enter Course Title" formControlName="courseTitle" required>
+                    <mat-error>
+                        Course Title is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
+                <div class="d-flex flex-column" style="width: 80%;">
+                    <mat-label>Student ID Card <small>(only .jpg/.png/.jpeg under 10 MB)</small></mat-label>
+                    <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+                    <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="upload"
+                        accept="image/png, image/gif, image/jpeg">
+                    <span class="file-name">{{selectedFile?.name}}</span>
+
+                </div>
+
+            </div>
+        </div>
+        <button (click)="onSubmit()" [disabled]="!studentLicenseForm.valid" mat-raised-button color="primary">Submit
+            Application</button>
+
+    </div>
+
+</form>
