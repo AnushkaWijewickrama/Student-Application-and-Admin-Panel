@@ -7,6 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { StudentLicenseService } from '../shared/services/StudentLicenseService.service';
+import { HttpResponse } from '@angular/common/http';
+import { StudentLicense } from '../shared/models/StudentLicense';
+import Swal from 'sweetalert2';
 
 export interface Countries {
   code: string
@@ -290,32 +294,45 @@ export class StudentlicenseComponent implements OnInit {
   selectedFile: any = null;
   countries: any = countries
   institutes: any = institutes
+  errorMessage: string = '';
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private studentLicenseService: StudentLicenseService) { }
 
   ngOnInit(): void {
     this.studentLicenseForm = this.fb.group({
       firstName: ["", [Validators.required]],
       lastName: ["", [Validators.required]],
       email: ["", [Validators.required, Validators.email]],
-      phone: ["", [Validators.required, Validators.pattern("^((\\+94-?)|0)?[0-9]{9}$")]],
+      phoneNumber: ["", [Validators.required, Validators.pattern("^((\\+94-?)|0)?[0-9]{9}$")]],
       address: [""],
       country: ["", [Validators.required]],
-      institude: ["", [Validators.required]],
+      institute: ["", [Validators.required]],
       intake: ["", [Validators.required]],
       courseTitle: ["", [Validators.required]],
-      upload: ["", [Validators.required]],
+      studentIdCard: ["", [Validators.required]],
 
     });
   }
 
 
   onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0] ?? null;
+    const file = event.target.files[0];
+    if (file && (file.type === 'image/jpeg' || file.type === 'image/png') && file.size < 10485760) {
+      this.studentLicenseForm.patchValue({
+        studentIdCard: file
+      });
+    } else {
+      this.studentLicenseForm.patchValue({
+        studentIdCard: null
+      });
+      this.errorMessage = 'Please upload a valid image file (.jpg, .png) under 10 MB.';
+    }
 
   }
   onSubmit(): void {
-    console.log(this.studentLicenseForm.value)
-
+    this.studentLicenseService.create(this.studentLicenseForm.value).subscribe((res: HttpResponse<StudentLicense>) => {
+      this.studentLicenseForm.reset()
+      Swal.fire("Saved!");
+    })
   }
 }

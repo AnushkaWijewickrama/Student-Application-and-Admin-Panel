@@ -36,7 +36,8 @@
             <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
                 <mat-form-field appearance="outline">
                     <mat-label>Phone</mat-label>
-                    <input type="number" matInput placeholder="Enter Phone Number" required formControlName="phone">
+                    <input type="number" matInput placeholder="Enter Phone Number" required
+                        formControlName="phoneNumber">
                     <mat-error *ngIf="studentLicenseForm?.get('phone')?.hasError('required')">Mobile Number is
                         required.</mat-error>
                     <mat-error *ngIf="studentLicenseForm.get('phone')?.hasError('pattern')">Please, Enter 10 digit
@@ -47,7 +48,7 @@
             <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
                 <mat-form-field appearance="outline">
                     <mat-label>Address</mat-label>
-                    <input matInput placeholder="Enter Address">
+                    <input matInput placeholder="Enter Address" formControlName="address">
                 </mat-form-field>
             </div>
             <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
@@ -55,7 +56,7 @@
                     <mat-label>Country</mat-label>
                     <mat-select formControlName="country" required>
                         @for (country of countries; track country.code) {
-                        <mat-option [value]="country">{{country.name}}</mat-option>
+                        <mat-option [value]="country?.name">{{country?.name}}</mat-option>
                         } @empty {
                         <li>There are no items.</li>
                         }
@@ -68,9 +69,9 @@
             <div class="col-lg-6 col-md 6 col-sm-12 mb-4">
                 <mat-form-field>
                     <mat-label>Institude</mat-label>
-                    <mat-select formControlName="institude" required>
+                    <mat-select formControlName="institute" required>
                         @for (institude of institutes; track institude.code) {
-                        <mat-option [value]="institude">{{institude.name}}</mat-option>
+                        <mat-option [value]="institude?.name">{{institude?.name}}</mat-option>
                         } @empty {
                         <li>There are no items.</li>
                         }
@@ -102,7 +103,7 @@
                 <div class="d-flex flex-column" style="width: 80%;">
                     <mat-label>Student ID Card <small>(only .jpg/.png/.jpeg under 10 MB)</small></mat-label>
                     <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-                    <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="upload"
+                    <input hidden (change)="onFileSelected($event)" #fileInput type="file"
                         accept="image/png, image/gif, image/jpeg">
                     <span class="file-name">{{selectedFile?.name}}</span>
 
