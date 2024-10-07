@@ -1,0 +1,61 @@
+<h1 class="mt-4 mb-4 text-center text-primary">Admin Dashboard</h1>
+<p-table #dt2 [value]="dataList" dataKey="id" [rows]="5" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+    [globalFilterFields]="['firstName', 'lastName', 'email', 'address','country','phone','intake','institute','courseTitle']"
+    [tableStyle]="{ 'min-width': '75rem' }">
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <p-iconField iconPosition="left" class="ml-auto">
+                <p-inputIcon>
+                    <i class="pi pi-search"></i>
+                </p-inputIcon>
+                <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
+                    placeholder="Search keyword" />
+            </p-iconField>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 11.11%;">FirstName</th>
+            <th style="width: 11.11%;">LastName</th>
+            <th style="width: 11.11%;">Email</th>
+            <th style="width: 11.11%;">Address</th>
+            <th style="width: 11.11%;">Country</th>
+            <th style="width: 11.11%;">Phone</th>
+            <th style="width: 11.11%;">Intake
+            </th>
+            <th style="width: 11.11%;">Institute</th>
+            <th style="width: 11.11%;">Course Title</th>
+        </tr>
+        <tr>
+            <th style="width: 50%;">
+                <p-columnFilter type="text" field="country" placeholder="Search by country"
+                    ariaLabel="Filter country" />
+            </th>
+            <th style="width: 50%;">
+                <p-columnFilter type="text" field="institute" placeholder="Search by institute"
+                    ariaLabel="Filter institute" />
+            </th>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data>
+        <tr>
+            <td>{{ data?.firstName }}</td>
+            <td>{{ data?.lastName }}</td>
+            <td>{{ data?.email }}</td>
+            <td>{{ data?.address }}</td>
+            <td>{{ data?.country }}</td>
+            <td>{{ data?.phone }}</td>
+            <td>{{ data?.intake }}</td>
+            <td>{{ data?.institute }}</td>
+            <td>{{ data?.courseTitle }}</td>
+
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5">No Students found.</td>
+        </tr>
+    </ng-template>
+</p-table>

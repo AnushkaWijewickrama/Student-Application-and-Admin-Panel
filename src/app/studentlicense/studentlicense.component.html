@@ -111,8 +111,10 @@
 
             </div>
         </div>
-        <button (click)="onSubmit()" [disabled]="!studentLicenseForm.valid" mat-raised-button color="primary">Submit
+        <button (click)="onSubmit()" style="margin-right: 15px !important;" [disabled]="!studentLicenseForm.valid"
+            mat-raised-button color="primary">Submit
             Application</button>
+        <button routerLink="/dashboard" mat-raised-button color="primary">Dashboard</button>
 
     </div>
 

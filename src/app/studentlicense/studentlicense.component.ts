@@ -11,6 +11,7 @@ import { StudentLicenseService } from '../shared/services/StudentLicenseService.
 import { HttpResponse } from '@angular/common/http';
 import { StudentLicense } from '../shared/models/StudentLicense';
 import Swal from 'sweetalert2';
+import { RouterLink } from '@angular/router';
 
 export interface Countries {
   code: string
@@ -284,7 +285,7 @@ export var institutes: Institutes[] = [
 @Component({
   selector: 'app-studentlicense',
   standalone: true,
-  imports: [MatFormFieldModule, MatIconModule, MatInputModule, MatDividerModule, MatButtonModule, MatSelectModule, ReactiveFormsModule, FormsModule, NgIf],
+  imports: [MatFormFieldModule, MatIconModule, MatInputModule, MatDividerModule, MatButtonModule, MatSelectModule, ReactiveFormsModule, FormsModule, NgIf, RouterLink],
   templateUrl: './studentlicense.component.html',
   styleUrl: './studentlicense.component.scss'
 })

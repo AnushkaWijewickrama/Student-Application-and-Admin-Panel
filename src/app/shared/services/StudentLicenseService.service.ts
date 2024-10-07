@@ -33,6 +33,7 @@ export class StudentLicenseService {
     formData.append('studentIdCard', formValue?.studentIdCard);
     return this.http.post<StudentLicense>(this.resourceUrl, formData, { observe: 'response' });
   }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<StudentLicense[]>(this.resourceUrl, { params: options, observe: 'response' });
